@@ -17,15 +17,19 @@ def game():
             self.o = '⛹'
             self.zm = '⛫-⛫1'
             self.zm2 = '⛫-⛫2'
-            self.g = ''
+            self.g = '༉'
             self.p = '༉༉༉'
             self.vr = '⌛'
+            self.gr = '/\ '
+            self.t = ''
             self.player1 = Player(1)
             self.player2 = Player(2)
             self.log_text = []
             self.current_player = self.player1
             x = 10
             y = 10
+            r_x = 70
+            r_y = 60
             for i in range(8):
                 kt = []
                 for j in range(8):
@@ -34,21 +38,21 @@ def game():
                     self.button.resize(50, 50)
                     self.button.move(x, y)
                     self.log.setDisabled(True)
-                    x += 70
+                    x += r_x
                     kt.append(self.button)
                 self.sp.append(kt)
                 x = 10
-                y += 60
+                y += r_y
             for l in range(0, len(self.sp), 2):
                 f = random.randint(1, 7)
                 f2 = random.randint(1, f)
                 p = random.randint(1, 7)
                 p2 = random.randint(f, 8)
                 print(self.sp[l][f - 1])
-                self.sp[l][f - 1].setText('/\ ')
-                self.sp[l][f].setText('༉')
+                self.sp[l][f - 1].setText(self.gr)
+                self.sp[l][f].setText(self.g)
                 self.sp[l][f - 1].setDisabled(True)
-                self.sp[l][f2 - 1].setText('/\ ')
+                self.sp[l][f2 - 1].setText(self.gr)
                 self.sp[l][f2 - 1].setDisabled(True)
                 self.sp[l][p - 1].setText(self.p)
                 self.sp[l][p2 - 1].setText(self.p)

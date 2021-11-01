@@ -16,19 +16,22 @@ class empty_info(QDialog):
 
 class Castle_info(QDialog):
     def __init__(self, castle, parent=None):
+        elfs = 'elfs'
+        player_town = 'Замок игрока'
+        army = 'армия:'
         super(Castle_info, self).__init__(parent)
         info = castle.print_info()
         nation = info[1]
         print(info)
         uic.loadUi('castle_design.ui', self)
-        if nation == 'elfs':
+        if nation == elfs:
             pixmap = QPixmap('elftown.jpg')
             self.label_3.setPixmap(pixmap)
         else:
             pixmap = QPixmap('orctown.jpg')
             self.label_3.setPixmap(pixmap)
-        self.label.setText('Замок игрока' + ' ' + str(info[0]))
-        self.label_2.setText('aрмия:' + ' ' + str(len(info[2])))
+        self.label.setText(player_town + ' ' + str(info[0]))
+        self.label_2.setText(army + ' ' + str(len(info[2])))
         self.pushButton.clicked.connect(self.btnClosed)
 
     def btnClosed(self):
