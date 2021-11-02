@@ -6,10 +6,14 @@ sn = 'elfs'
 
 class unit:
     def __init__(self, name, nation, power, health, factor_p):
+        self.name = name
         if nation == fn:
-            orcs[name] = [power, health, factor_p]
+            orcs[name] = [str(power), str(health), str(factor_p)]
         else:
-            elfs[name] = [power, health, factor_p]
+            elfs[name] = [str(power), str(health), str(factor_p)]
+
+    def return_name(self):
+        return self.name
 
 
 elf = unit('эльф-копейщик', 'elfs', 1, 1, 0)

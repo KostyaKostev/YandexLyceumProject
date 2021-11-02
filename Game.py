@@ -1,9 +1,9 @@
 import sys
 import random
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QTextEdit
 from PlayerClass import Player
-from CastleClass import Castle, unit, elf, orc
+from CastleClass import Castle, unit, elfs, orcs
 from OpenWindow import empty_info, Castle_info, Pole_info
 
 def game():
@@ -21,7 +21,12 @@ def game():
             self.p = '༉༉༉'
             self.vr = '⌛'
             self.gr = '/\ '
-            self.t = ''
+            self.t = '---------------'
+            self.r = ';'
+            self.st = 'сила: '
+            self.hl = 'здоровье: '
+            self.fp = 'фактор пи: '
+            self.sep = '\n'
             self.player1 = Player(1)
             self.player2 = Player(2)
             self.log_text = []
@@ -84,15 +89,41 @@ def game():
 
         def go(self):
             self.log.setDisabled(False)
-            if self.turn == 1:
-                self.turn = 2
-                self.current_player = self.player2
-                self.log.setPlainText('Ходит 2 игрок')
-            else:
-                self.current_player = self.player1
-                self.turn = 1
-                self.log.setPlainText('Ходит 1 игрок')
             self.turns += 1
+            txt = self.info.toPlainText()
+            found = False
+            if len(txt) != 0:
+                for key in elfs.keys():
+                    if key == txt:
+                        strg, hlth, fctp = elfs[key][0], elfs[key][1], elfs[key][2]
+                        self.log.appendPlainText(self.st + strg + self.sep)
+                        self.log.appendPlainText(self.hl + hlth + self.sep)
+                        self.log.appendPlainText(self.fp + fctp + self.sep)
+                        found = True
+                if not found:
+                    for key in orcs.keys():
+                        if key == txt:
+                            strg, hlth, fctp = orcs[key][0], orcs[key][1], orcs[key][2]
+                            self.log.appendPlainText(self.st + strg + self.sep)
+                            self.log.appendPlainText(self.hl + hlth + self.sep)
+                            self.log.appendPlainText(self.fp + fctp + self.sep)
+                            found = True
+                if not found:
+                    self.log.appendPlainText('информация не найдена' + self.sep)
+                self.log.appendPlainText(self.t + self.sep)
+                if self.turn == 1:
+                    self.turn = 2
+                    self.current_player = self.player2
+                    text = 'Ходит 2 игрок;' + self.sep
+                    self.log.appendPlainText(text)
+                    self.log_text.append(text)
+                else:
+                    self.current_player = self.player1
+                    self.turn = 1
+                    text = 'Ходит 1 игрок;' + self.sep
+                    self.log.appendPlainText(text)
+                    self.log_text.append(text)
+
             info = self.current_player.print_info()
             self.army.setText(str(info[2]))
             self.castles.setText(str(info[1]))
