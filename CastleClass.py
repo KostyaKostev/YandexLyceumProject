@@ -1,3 +1,4 @@
+from UploadFromBD import all_heroes
 elfs = {}
 orcs = {}
 fn = 'orcs'
@@ -5,20 +6,20 @@ sn = 'elfs'
 
 
 class unit:
-    def __init__(self, name, nation, power, health, factor_p):
-        self.name = name
-        if nation == fn:
-            orcs[name] = [str(power), str(health), str(factor_p)]
-        else:
-            elfs[name] = [str(power), str(health), str(factor_p)]
+    def __init__(self, text):
+        result = []
+        for key in all_heroes.keys():
+            if text == key:
+                result = all_heroes[text]
+                result.insert(0, key)
+                print(key)
+        self.result = result
 
-    def return_name(self):
-        return self.name
+    def print_info(self):
+        return self.result
 
-
-elf = unit('эльф-копейщик', 'elfs', 1, 1, 0)
-orc = unit('гоблин', 'orcs', 1, 1, 0)
-
+    def is_alive(self):
+        pass
 
 class Castle:
     def __init__(self, nation, player):
@@ -34,4 +35,4 @@ class Castle:
             self.naim = elfs
 
     def print_info(self):
-        return [self.player, self.nation, self.army, self.naim]
+        return [self.player, self.nation, self.army]

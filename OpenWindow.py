@@ -1,14 +1,15 @@
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QVBoxLayout, QLabel
 from PlayerClass import Player
 from PyQt5.QtGui import QPixmap
-from CastleClass import Castle, unit, elf, orc
+from CastleClass import Castle, unit
 
 
 class empty_info(QDialog):
     def __init__(self, parent=None):
         super(empty_info, self).__init__(parent)
         uic.loadUi('empty_design.ui', self)
+        self.pushButton.clicked.connect(self.btnClosed)
 
     def btnClosed(self):
         self.close()
@@ -35,21 +36,13 @@ class Castle_info(QDialog):
         self.label.setText(player_town + ' ' + str(info[0]))
         self.label_2.setText(army + ' ' + str(len(info[2])))
         self.label_4.setText(race)
-        self.descriptiom.clicked.connect(self.describe())
+        self.description.clicked.connect(self.describe)
         self.pushButton.clicked.connect(self.btnClosed)
-        self.hire.clicked.connect(self.hired())
-        self.attack.clicked.connect(self.attacked())
 
     def btnClosed(self):
         self.close()
 
     def describe(self):
-        pass
-
-    def hired(self):
-        pass
-
-    def attacked(self):
         pass
 
 
@@ -64,3 +57,32 @@ class Pole_info(QDialog):
 
     def btnClosed(self):
         self.close()
+
+
+class error_info(QDialog):
+    def __init__(self, error, parent=None):
+        super(error_info, self).__init__(parent)
+        uic.loadUi('error_window.ui', self)
+        if error == 'index':
+            self.label.setText('юнит не может дойти до сюда. даже не пытайся')
+        elif error == 'already_done':
+            self.label.setText('вы уже совершили ход.')
+        self.go_to_button.clicked.connect(self.btnClosed)
+
+    def btnClosed(self):
+        self.close()
+
+
+class class_info(QDialog):
+    def __init__(self, human, parent=None):
+        super(class_info, self).__init__(parent)
+        info = human.print_info()
+        uic.loadUi('class_design.ui', self)
+        self.pushButton.clicked.connect(self.btnClosed)
+        self.go_to_button.clicked.connect(self.go_go)
+
+    def btnClosed(self):
+        self.close()
+
+    def go_go(self):
+        pass
