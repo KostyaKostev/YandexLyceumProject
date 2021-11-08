@@ -3,6 +3,7 @@ elfs = {}
 orcs = {}
 fn = 'orcs'
 sn = 'elfs'
+sk = ['▼', 1, 4, 15, 350, 0, 'warrior', 'elfs', 3.5]
 
 
 class unit:
@@ -11,9 +12,10 @@ class unit:
         for key in all_heroes.keys():
             if text == key:
                 result = all_heroes[text]
-                result.insert(0, key)
-                print(key)
+                if key not in result:
+                    result.insert(0, key)
         self.result = result
+        print(result)
 
     def print_info(self):
         return self.result
